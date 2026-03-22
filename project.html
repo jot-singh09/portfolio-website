@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Projects & Links - Karanjot Singh</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f6f8fa;
+            --text-primary: #1f2328;
+            --text-secondary: #57606a;
+            --text-muted: #6e7781;
+            --accent-primary: #7c3aed;
+            --accent-secondary: #6d28d9;
+            --accent-gradient: linear-gradient(135deg, #7c3aed, #6d28d9);
+            --card-bg: rgba(0, 0, 0, 0.02);
+            --card-border: rgba(124, 58, 237, 0.2);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --text-muted: #6e7681;
+            --accent-primary: #a855f7;
+            --accent-secondary: #8b5cf6;
+            --accent-gradient: linear-gradient(135deg, #a855f7, #8b5cf6);
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --card-border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            transition: background 0.3s ease;
+            min-height: 100vh;
+        }
+
+        /* Background Effects */
+        .starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            animation: twinkle 3s infinite ease-in-out;
+            opacity: 0.4;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.8; }
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.15;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent-primary);
+            top: 10%;
+            left: 10%;
+        }
+
+        .orb-2 {
+            width: 250px;
+            height: 250px;
+            background: var(--accent-secondary);
+            bottom: 20%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(50px, -50px); }
+            66% { transform: translate(-30px, 30px); }
+        }
+
+        /* Header */
+        .header {
+            position: relative;
+            z-index: 10;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(12px);
+        }
+
+        .back-button:hover {
+            transform: translateX(-4px);
+            border-color: var(--accent-primary);
+        }
+
+        .theme-toggle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--card-border);
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Container */
+        .container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px 60px;
+            z-index: 1;
+        }
+
+        /* Page Title */
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .gradient-text {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        /* Project Card */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.6s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .project-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 12px 28px rgba(124, 58, 237, 0.3);
+        }
+
+        .project-name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .project-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .project-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .project-btn {
+            flex: 1;
+            padding: 10px 16px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--card-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--card-border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-primary);
+            background: var(--card-border);
+        }
+
+        /* Social Media Links */
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 16px;
+        }
+
+        .social-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.6s ease;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .social-card.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .social-card:hover {
+            transform: translateY(-8px) scale(1.05);
+            border-color: var(--accent-primary);
+            box-shadow: 0 12px 28px rgba(124, 58, 237, 0.3);
+        }
+
+        .social-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            transition: transform 0.6s ease;
+        }
+
+        .social-card:hover .social-icon {
+            transform: rotate(360deg);
+        }
+
+        .instagram { background: linear-gradient(135deg, #E1306C, #C13584, #833AB4); }
+        .github { background: linear-gradient(135deg, #333, #24292e); }
+        .snapchat { background: linear-gradient(135deg, #FFFC00, #FFF700); }
+
+        .social-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Animations */
+        .project-card:nth-child(1) { transition-delay: 0.1s; }
+        .project-card:nth-child(2) { transition-delay: 0.2s; }
+        .project-card:nth-child(3) { transition-delay: 0.3s; }
+        .project-card:nth-child(4) { transition-delay: 0.4s; }
+
+        .social-card:nth-child(1) { transition-delay: 0.1s; }
+        .social-card:nth-child(2) { transition-delay: 0.2s; }
+        .social-card:nth-child(3) { transition-delay: 0.3s; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 36px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .social-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 16px 40px;
+            }
+
+            .page-title {
+                font-size: 32px;
+            }
+
+            .project-card {
+                padding: 20px;
+            }
+
+            .social-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <div class="starfield" id="starfield"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="header">
+        <a href="dashboard.html" class="back-button">
+            <span>←</span>
+            <span>Back to Dashboard</span>
+        </a>
+        <button class="theme-toggle" id="theme">🌙</button>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">My <span class="gradient-text">Projects</span> & Links</h1>
+            <p class="page-subtitle">Explore my work and connect with me</p>
+        </div>
+
+        <!-- Projects Section -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">💼</div>
+                <h2 class="section-title">Project <span class="gradient-text">Links</span></h2>
+            </div>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <h3 class="project-name">Personal Song-Website</h3>
+                    <p class="project-description">A beautiful music website showcasing my favorite songs and playlists.</p>
+                    <div class="project-buttons">
+                        <a href="https://song-website.netlify.app/" class="project-btn btn-primary">
+                            <span>🌐</span>
+                            <span>View Website</span>
+                        </a>
+                        <a href="song.html" class="project-btn btn-secondary">
+                            <span>📁</span>
+                            <span>View Project</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Add more projects here -->
+                <!-- Example Project Template
+                <div class="project-card">
+                    <h3 class="project-name">Project Name</h3>
+                    <p class="project-description">Brief description of your project.</p>
+                    <div class="project-buttons">
+                        <a href="https://your-website-link.com" class="project-btn btn-primary">
+                            <span>🌐</span>
+                            <span>View Website</span>
+                        </a>
+                        <a href="project-file.html" class="project-btn btn-secondary">
+                            <span>📁</span>
+                            <span>View Project</span>
+                        </a>
+                    </div>
+                </div>
+                -->
+            </div>
+        </div>
+
+        <!-- Social Media Section -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon">🔗</div>
+                <h2 class="section-title">Social Media <span class="gradient-text">Links</span></h2>
+            </div>
+            <div class="social-grid">
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/jot_singh.009?igsh=dnM2cnBzZG4xNTl4" class="social-card" id="instagram-link">
+                    <div class="social-icon instagram">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </div>
+                    <span class="social-name">Instagram</span>
+                </a>
+
+                <!-- GitHub -->
+                <a href="https://github.com/jot-singh09" class="social-card" id="github-link">
+                    <div class="social-icon github">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </div>
+                    <span class="social-name">GitHub</span>
+                </a>
+
+                <!-- Snapchat -->
+                <a href="https://www.snapchat.com/add/karanx_295?share_id=nO-2WN2QEDY&locale=en-IN" class="social-card" id="snapchat-link">
+                    <div class="social-icon snapchat">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="#000">
+                            <path d="M12.166.005C6.523.078 2.105 4.416 2.01 10.059c-.032 1.904.475 3.554 1.374 5.035-.168.042-.341.09-.518.148-.53.172-.774.335-.922.447a.54.54 0 0 0-.213.444c.01.233.135.427.35.537.465.238.94.298 1.434.364.091.013.184.026.278.042-.222.67-.46 1.362-.46 2.015 0 .655.403 1.138.967 1.415.564.278 1.259.393 1.964.393.697 0 1.398-.113 1.991-.313.27-.091.51-.197.72-.311.441.248.977.447 1.577.574.298.063.61.096.926.096s.628-.033.926-.096c.6-.127 1.136-.326 1.577-.574.21.114.45.22.72.311.593.2 1.294.313 1.991.313.705 0 1.4-.115 1.964-.393.564-.277.967-.76.967-1.415 0-.653-.238-1.345-.46-2.015.094-.016.187-.029.278-.042.494-.066.969-.126 1.434-.364.215-.11.34-.304.35-.537a.54.54 0 0 0-.213-.444c-.148-.112-.392-.275-.922-.447-.177-.058-.35-.106-.518-.148.899-1.481 1.406-3.131 1.374-5.035C21.895 4.416 17.477.078 11.834.005h.332z"/>
+                        </svg>
+                    </div>
+                    <span class="social-name">Snapchat</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Starfield
+        const starfield = document.getElementById('starfield');
+        for (let i = 0; i < 50; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starfield.appendChild(star);
+        }
+
+        // Theme Toggle
+        const theme = document.getElementById('theme');
+        theme.addEventListener('click', () => {
+            const current = document.body.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.body.setAttribute('data-theme', next);
+            theme.textContent = next === 'dark' ? '☀️' : '🌙';
+        });
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.project-card, .social-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
