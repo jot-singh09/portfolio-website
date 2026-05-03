@@ -1,1083 +1,1201 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Karanjot Singh - Portfolio</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg-primary: #0d1117;
-            --bg-secondary: #161b22;
-            --text-primary: #e6edf3;
-            --text-secondary: #8b949e;
-            --text-muted: #6e7681;
-            --accent-primary: #a855f7;
-            --accent-secondary: #8b5cf6;
-            --accent-gradient: linear-gradient(135deg, #a855f7, #8b5cf6);
-            --card-bg: rgba(255, 255, 255, 0.02);
-            --card-border: rgba(255, 255, 255, 0.08);
-            --code-bg: #0d1117;
-        }
-
-        [data-theme="light"] {
-            --bg-primary: #ffffff;
-            --bg-secondary: #f6f8fa;
-            --text-primary: #1f2328;
-            --text-secondary: #57606a;
-            --text-muted: #6e7781;
-            --accent-primary: #7c3aed;
-            --accent-secondary: #6d28d9;
-            --accent-gradient: linear-gradient(135deg, #7c3aed, #6d28d9);
-            --card-bg: rgba(0, 0, 0, 0.02);
-            --card-border: rgba(124, 58, 237, 0.2);
-            --code-bg: #f6f8fa;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            overflow-x: hidden;
-            transition: background 0.3s ease;
-        }
-
-        /* Starfield */
-        .starfield {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: var(--accent-primary);
-            border-radius: 50%;
-            animation: twinkle 3s infinite ease-in-out;
-            opacity: 0.4;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 0.8; }
-        }
-
-        /* Orbs */
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.15;
-            animation: float 20s infinite ease-in-out;
-        }
-
-        .orb-1 {
-            width: 300px;
-            height: 300px;
-            background: var(--accent-primary);
-            top: 10%;
-            left: 10%;
-        }
-
-        .orb-2 {
-            width: 250px;
-            height: 250px;
-            background: var(--accent-secondary);
-            bottom: 20%;
-            right: 10%;
-            animation-delay: 5s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            33% { transform: translate(50px, -50px); }
-            66% { transform: translate(-30px, 30px); }
-        }
-
-        /* 3D Shapes */
-        .geometric-shapes {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .shape {
-            position: absolute;
-            opacity: 0.08;
-            animation: rotate3d 20s infinite linear;
-        }
-
-        .shape-1 {
-            width: 100px;
-            height: 100px;
-            border: 2px solid var(--accent-primary);
-            top: 15%;
-            left: 10%;
-        }
-
-        .shape-2 {
-            width: 120px;
-            height: 120px;
-            border: 2px solid var(--accent-secondary);
-            border-radius: 50%;
-            bottom: 20%;
-            left: 20%;
-            animation-delay: 6s;
-        }
-
-        @keyframes rotate3d {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Theme Toggle (Floating) */
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            border: 1px solid var(--card-border);
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            transition: all 0.3s;
-            z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.1);
-        }
-
-        /* Container */
-        .container {
-            position: relative;
-            max-width: 420px;
-            margin: 0 auto;
-            padding: 60px 24px 60px;
-            z-index: 1;
-        }
-
-        /* Badge */
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            font-size: 13px;
-            color: var(--accent-primary);
-            margin-bottom: 24px;
-        }
-
-        /* Hero */
-        .hero {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-
-        .hero h1 {
-            font-size: 56px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            line-height: 1.1;
-        }
-
-        .gradient-text {
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .typewriter-line {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 20px;
-            min-height: 40px;
-        }
-
-        .typewriter {
-            font-size: 18px;
-            color: var(--text-secondary);
-        }
-
-        .cursor {
-            width: 2px;
-            height: 24px;
-            background: var(--accent-primary);
-            animation: blink 0.8s infinite;
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-        }
-
-        .hero-description {
-            font-size: 15px;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 32px;
-        }
-
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 32px;
-            background: var(--accent-gradient);
-            color: white;
-            text-decoration: none;
-            border-radius: 12px;
-            font-weight: 600;
-            transition: all 0.3s;
-            box-shadow: 0 8px 24px rgba(168, 85, 247, 0.25);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-        }
-
-        .scroll-indicator {
-            margin-top: 40px;
-            font-size: 12px;
-            color: var(--text-muted);
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        /* Section */
-        section {
-            margin-bottom: 80px;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .section-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 14px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            font-size: 12px;
-            color: var(--accent-primary);
-            margin-bottom: 16px;
-        }
-
-        .section-title {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .section-subtitle {
-            font-size: 15px;
-            color: var(--text-secondary);
-        }
-
-        /* Skills */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .skill-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s;
-        }
-
-        .skill-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-primary);
-        }
-
-        .skill-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            font-weight: 700;
-            color: white;
-        }
-
-        .c-lang { background: linear-gradient(135deg, #3b82f6, #2563eb); }
-        .cpp-lang { background: linear-gradient(135deg, #06b6d4, #0891b2); }
-        .py-lang { background: linear-gradient(135deg, #facc15, #eab308); }
-        .html-lang { background: linear-gradient(135deg, #f97316, #ea580c); }
-        .css-lang { background: linear-gradient(135deg, #3b82f6, #2563eb); }
-        .js-lang { background: linear-gradient(135deg, #facc15, #eab308); }
-        .react-lang { background: linear-gradient(135deg, #06b6d4, #0891b2); }
-        .git-lang { background: linear-gradient(135deg, #ef4444, #dc2626); }
-
-        .skill-name {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        /* Expertise */
-        .expertise-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 16px;
-            transition: all 0.3s;
-        }
-
-        .expertise-card:hover {
-            border-color: var(--accent-primary);
-            transform: translateX(4px);
-        }
-
-        .expertise-content h3 {
-            font-size: 16px;
-            margin-bottom: 6px;
-        }
-
-        .expertise-content p {
-            font-size: 13px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* Code */
-        .code-window {
-            background: var(--code-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            margin-bottom: 16px;
-        }
-
-        .code-header {
-            background: var(--card-bg);
-            padding: 10px 14px;
-            display: flex;
-            gap: 6px;
-            border-bottom: 1px solid var(--card-border);
-        }
-
-        .code-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-
-        .code-dot.red { background: #ef4444; }
-        .code-dot.yellow { background: #facc15; }
-        .code-dot.green { background: #22c55e; }
-
-        .code-lang {
-            margin-left: auto;
-            font-size: 11px;
-            color: var(--accent-primary);
-            font-weight: 600;
-        }
-
-        .code-content {
-            padding: 16px;
-            font-family: 'Courier New', monospace;
-            font-size: 12px;
-            line-height: 1.6;
-            color: var(--text-secondary);
-        }
-
-        /* Stats */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-bottom: 40px;
-        }
-
-        .stat-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 20px 16px;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 28px;
-            font-weight: 700;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 6px;
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        /* Connect */
-        .connect-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 32px 24px;
-            text-align: center;
-        }
-
-        .connect-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 16px;
-            background: var(--accent-gradient);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-
-        .connect-card h3 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .connect-card p {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 24px;
-        }
-
-        /* Scroll Animations */
-        .scroll-fade {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1.2s ease, transform 1.2s ease;
-        }
-
-        .scroll-fade.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .scroll-slide-left {
-            opacity: 0;
-            transform: translateX(-50px);
-            transition: opacity 1.2s ease, transform 1.2s ease;
-        }
-
-        .scroll-slide-left.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .scroll-slide-right {
-            opacity: 0;
-            transform: translateX(50px);
-            transition: opacity 1.2s ease, transform 1.2s ease;
-        }
-
-        .scroll-slide-right.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .scroll-zoom {
-            opacity: 0;
-            transform: scale(0.8);
-            transition: opacity 1.2s ease, transform 1.2s ease;
-        }
-
-        .scroll-zoom.visible {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        /* Enhanced Text Animations */
-        .hero h1 {
-            animation: fadeInUp 1.5s ease;
-        }
-
-        .badge {
-            animation: fadeInDown 1.2s ease;
-        }
-
-        .typewriter-line {
-            animation: fadeIn 1.8s ease;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* Enhanced Card Hover Effects */
-        .skill-card {
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .skill-card:hover {
-            transform: translateY(-8px) scale(1.05);
-            border-color: var(--accent-primary);
-            box-shadow: 0 12px 24px rgba(168, 85, 247, 0.3);
-        }
-
-        .skill-card:hover .skill-icon {
-            transform: rotate(360deg);
-            transition: transform 0.8s ease;
-        }
-
-        .expertise-card {
-            transition: all 0.6s ease;
-        }
-
-        .expertise-card:hover {
-            border-color: var(--accent-primary);
-            transform: translateX(8px) scale(1.02);
-            box-shadow: 0 8px 20px rgba(168, 85, 247, 0.2);
-        }
-
-        .code-window {
-            transition: all 0.6s ease;
-        }
-
-        .code-window:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-primary);
-            box-shadow: 0 8px 20px rgba(168, 85, 247, 0.2);
-        }
-
-        .stat-card {
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-8px) scale(1.05);
-            border-color: var(--accent-primary);
-            box-shadow: 0 12px 24px rgba(168, 85, 247, 0.3);
-        }
-
-        .stat-card:hover .stat-number {
-            transform: scale(1.2);
-            transition: transform 0.5s ease;
-        }
-
-        .connect-card {
-            transition: all 0.6s ease;
-        }
-
-        .connect-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-primary);
-            box-shadow: 0 12px 28px rgba(168, 85, 247, 0.3);
-        }
-
-        .connect-card:hover .connect-icon {
-            transform: rotate(360deg) scale(1.1);
-            transition: transform 0.8s ease;
-        }
-
-        /* Stagger Animation Delays */
-        .skill-card:nth-child(1) { transition-delay: 0.15s; }
-        .skill-card:nth-child(2) { transition-delay: 0.3s; }
-        .skill-card:nth-child(3) { transition-delay: 0.45s; }
-        .skill-card:nth-child(4) { transition-delay: 0.6s; }
-        .skill-card:nth-child(5) { transition-delay: 0.75s; }
-        .skill-card:nth-child(6) { transition-delay: 0.9s; }
-        .skill-card:nth-child(7) { transition-delay: 1.05s; }
-        .skill-card:nth-child(8) { transition-delay: 1.2s; }
-
-        .stat-card:nth-child(1) { transition-delay: 0.15s; }
-        .stat-card:nth-child(2) { transition-delay: 0.3s; }
-        .stat-card:nth-child(3) { transition-delay: 0.45s; }
-
-        /* Text Hover Effects */
-        .section-title {
-            transition: all 0.5s ease;
-        }
-
-        .section-title:hover {
-            transform: scale(1.05);
-            letter-spacing: 1px;
-        }
-
-        .hero-description {
-            transition: all 0.5s ease;
-        }
-
-        .hero-description:hover {
-            color: var(--text-primary);
-            transform: scale(1.02);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 80px 20px 60px;
-            }
-
-            .hero h1 {
-                font-size: 48px;
-            }
-
-            .typewriter {
-                font-size: 16px;
-            }
-
-            .section-title {
-                font-size: 28px;
-            }
-
-            .skills-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 10px;
-            }
-
-            .skill-card {
-                padding: 14px;
-            }
-
-            .skill-icon {
-                width: 38px;
-                height: 38px;
-                font-size: 18px;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 10px;
-            }
-
-            .stat-card {
-                padding: 16px 12px;
-            }
-
-            .stat-number {
-                font-size: 24px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 60px 16px 40px;
-            }
-
-            .hero h1 {
-                font-size: 42px;
-            }
-
-            .typewriter {
-                font-size: 15px;
-            }
-
-            .hero-description {
-                font-size: 14px;
-            }
-
-            .cta-button {
-                padding: 12px 28px;
-                font-size: 14px;
-            }
-
-            .section-title {
-                font-size: 26px;
-            }
-
-            .section-subtitle {
-                font-size: 14px;
-            }
-
-            .skills-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-
-            .skill-card {
-                padding: 12px;
-            }
-
-            .skill-icon {
-                width: 36px;
-                height: 36px;
-                font-size: 16px;
-            }
-
-            .skill-name {
-                font-size: 11px;
-            }
-
-            .expertise-card {
-                padding: 16px;
-            }
-
-            .expertise-content h3 {
-                font-size: 15px;
-            }
-
-            .expertise-content p {
-                font-size: 12px;
-            }
-
-            .code-window {
-                margin-bottom: 12px;
-            }
-
-            .code-content {
-                padding: 12px;
-                font-size: 11px;
-            }
-
-            .stats-grid {
-                gap: 8px;
-            }
-
-            .stat-card {
-                padding: 14px 10px;
-            }
-
-            .stat-number {
-                font-size: 22px;
-            }
-
-            .stat-label {
-                font-size: 11px;
-            }
-
-            .connect-card {
-                padding: 28px 20px;
-            }
-
-            .connect-icon {
-                width: 48px;
-                height: 48px;
-                font-size: 24px;
-                margin-bottom: 16px;
-            }
-
-            .connect-card h3 {
-                font-size: 22px;
-            }
-
-            .connect-card p {
-                font-size: 13px;
-            }
-
-            .theme-toggle {
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .hero h1 {
-                font-size: 36px;
-            }
-
-            .skills-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
-            }
-
-            .skill-card {
-                padding: 10px;
-            }
-
-            .skill-icon {
-                width: 32px;
-                height: 32px;
-                font-size: 14px;
-            }
-        }
-
-        /* Prevent text selection and touch callout on mobile */
-        @media (max-width: 768px) {
-            * {
-                -webkit-touch-callout: none;
-                -webkit-tap-highlight-color: transparent;
-            }
-
-            body {
-                -webkit-text-size-adjust: 100%;
-                -moz-text-size-adjust: 100%;
-                -ms-text-size-adjust: 100%;
-                text-size-adjust: 100%;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vCard - Personal Portfolio</title>
+
+  <!--
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
+
+  <!--
+    - custom css link
+  -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <!--
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
-<body data-theme="light">
-    <div class="starfield" id="starfield"></div>
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="geometric-shapes">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
+
+<body>
+
+  <!--
+    - #MAIN
+  -->
+
+  <main>
+
+    <!--
+      - #SIDEBAR
+    -->
+
+    <aside class="sidebar" data-sidebar>
+
+      <div class="sidebar-info">
+
+        <figure class="avatar-box">
+          <img src="./assets/images/my-avatar.png" alt="Karanjot Singh" width="80">
+        </figure>
+
+        <div class="info-content">
+          <h1 class="name" title="Karanjot Singh">Karanjot Singh</h1>
+
+          <p class="title">Web developer</p>
+        </div>
+
+        <button class="info_more-btn" data-sidebar-btn>
+          <span>Show Contacts</span>
+
+          <ion-icon name="chevron-down"></ion-icon>
+        </button>
+
+      </div>
+
+      <div class="sidebar-info_more">
+
+        <div class="separator"></div>
+
+        <ul class="contacts-list">
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="mail-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Email</p>
+
+              <a href="mailto:richard@example.com" class="contact-link">jotsinghkaran987@gmail.com</a>
+            </div>
+
+          </li>
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="phone-portrait-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Phone</p>
+
+              <a href="tel:+12133522795" class="contact-link">+91 94785 10939</a>
+            </div>
+
+          </li>
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="calendar-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Birthday</p>
+
+              <time datetime="1982-06-23">Dec 12, 2009</time>
+            </div>
+
+          </li>
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="location-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Location</p>
+
+              <address>Malerkotla , Punjab , India</address>
+            </div>
+
+          </li>
+
+        </ul>
+
+        <div class="separator"></div>
+
+        <ul class="social-list">
+<!-- 
+          <li class="social-item">
+            <a href="#" class="social-link">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </a>
+          </li>
+
+          <li class="social-item">
+            <a href="#" class="social-link">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </a>
+          </li> -->
+
+          <li class="social-item">
+            <a href="https://www.instagram.com/jot_singh.009?igsh=dnM2cnBzZG4xNTl4" class="social-link">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+
+    </aside>
+
+
+
+
+
+    <!--
+      - #main-content
+    -->
+
+    <div class="main-content">
+
+      <!--
+        - #NAVBAR
+      -->
+
+      <nav class="navbar">
+
+        <ul class="navbar-list">
+
+          <li class="navbar-item">
+            <button class="navbar-link  active" data-nav-link>About</button>
+          </li>
+
+          <!-- <li class="navbar-item">
+            <button class="navbar-link" data-nav-link>Resume</button>
+          </li> -->
+
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link>Portfolio</button>
+          </li>
+
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link>Blog</button>
+          </li>
+
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link>Contact</button>
+          </li>
+
+        </ul>
+
+      </nav>
+
+
+
+
+
+      <!--
+        - #ABOUT
+      -->
+
+      <article class="about  active" data-page="about">
+
+        <header>
+          <h2 class="h2 article-title">About me</h2>
+        </header>
+
+        <section class="about-text">
+          <p>
+            I'm Creative UI/UX Designer from Malerkotla, Punjab, working in web development and print media.
+            I enjoy
+            turning complex problems into simple, beautiful and intuitive designs.
+          </p>
+
+          <p>
+            My job is to build your website so that it is functional and user-friendly but at the same time attractive.
+            Moreover, I
+            add personal touch to your product and make sure that is eye-catching and easy to use. My aim is to bring
+            across your
+            message and identity in the most creative way. I created web design for many famous brand companies.
+          </p>
+        </section>
+
+
+        <!--
+          - service
+        -->
+
+        <section class="service">
+
+          <h3 class="h3 service-title">What i'm doing</h3>
+
+          <ul class="service-list">
+
+            <li class="service-item">
+
+              <div class="service-icon-box">
+                <img src="./assets/images/icon-design.svg
+                " alt="design icon" width="40">
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Web design</h4>
+
+                <p class="service-item-text">
+                  The most modern and high-quality design made at a professional level.
+                </p>
+              </div>
+
+            </li>
+
+            <li class="service-item">
+
+              <div class="service-icon-box">
+                <img src="./assets/images/icon-dev.svg" alt="Web development icon" width="40">
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Web development</h4>
+
+                <p class="service-item-text">
+                  High-quality development of sites at the professional level.
+                </p>
+              </div>
+
+            </li>
+
+            <li class="service-item">
+
+              <div class="service-icon-box">
+                <img src="./assets/images/icon-app.svg" alt="mobile app icon" width="40">
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Graphic Deginer</h4>
+
+                <p class="service-item-text">
+                  Professional deginer of .PPT and social media posters
+                </p>
+              </div>
+
+            </li>
+
+            <li class="service-item">
+
+              <div class="service-icon-box">
+                <img src="./assets/images/icon-photo.svg" alt="camera icon" width="40">
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Photography</h4>
+
+                <p class="service-item-text">
+                  I make high-quality photos of any category at a professional level.
+                </p>
+              </div>
+
+            </li>
+
+          </ul>
+
+        </section>
+
+
+        <!-- 
+          - testimonials
+        -->
+<!-- 
+        <section class="testimonials">
+
+          <h3 class="h3 testimonials-title">Testimonials</h3>
+
+          <ul class="testimonials-list has-scrollbar">
+
+            <li class="testimonials-item">
+              <div class="content-card" data-testimonials-item>
+
+                <figure class="testimonials-avatar-box">
+                  <img src="./assets/images/avatar-1.png" alt="Daniel lewis" width="60" data-testimonials-avatar>
+                </figure>
+
+                <h4 class="h4 testimonials-item-title" data-testimonials-title>Daniel lewis</h4>
+
+                <div class="testimonials-text" data-testimonials-text>
+                  <p>
+                    Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
+                    lot of experience
+                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
+                    consectetur adipiscing
+                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
+                  </p>
+                </div>
+
+              </div>
+            </li>
+
+            <li class="testimonials-item">
+              <div class="content-card" data-testimonials-item>
+
+                <figure class="testimonials-avatar-box">
+                  <img src="./assets/images/avatar-2.png" alt="Jessica miller" width="60" data-testimonials-avatar>
+                </figure>
+
+                <h4 class="h4 testimonials-item-title" data-testimonials-title>Jessica miller</h4>
+
+                <div class="testimonials-text" data-testimonials-text>
+                  <p>
+                    Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
+                    lot of experience
+                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
+                    consectetur adipiscing
+                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
+                  </p>
+                </div>
+
+              </div>
+            </li>
+
+            <li class="testimonials-item">
+              <div class="content-card" data-testimonials-item>
+
+                <figure class="testimonials-avatar-box">
+                  <img src="./assets/images/avatar-3.png" alt="Emily evans" width="60" data-testimonials-avatar>
+                </figure>
+
+                <h4 class="h4 testimonials-item-title" data-testimonials-title>Emily evans</h4>
+
+                <div class="testimonials-text" data-testimonials-text>
+                  <p>
+                    Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
+                    lot of experience
+                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
+                    consectetur adipiscing
+                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
+                  </p>
+                </div>
+
+              </div>
+            </li>
+
+            <li class="testimonials-item">
+              <div class="content-card" data-testimonials-item>
+
+                <figure class="testimonials-avatar-box">
+                  <img src="./assets/images/avatar-4.png" alt="Henry william" width="60" data-testimonials-avatar>
+                </figure>
+
+                <h4 class="h4 testimonials-item-title" data-testimonials-title>Henry william</h4>
+
+                <div class="testimonials-text" data-testimonials-text>
+                  <p>
+                    Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
+                    lot of experience
+                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
+                    consectetur adipiscing
+                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
+                  </p>
+                </div>
+
+              </div>
+            </li>
+
+          </ul>
+
+        </section> --> 
+
+
+        <!--
+          - testimonials modal
+        -->
+
+        <div class="modal-container" data-modal-container>
+
+          <div class="overlay" data-overlay></div>
+
+          <section class="testimonials-modal">
+
+            <button class="modal-close-btn" data-modal-close-btn>
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
+
+            <div class="modal-img-wrapper">
+              <figure class="modal-avatar-box">
+                <img src="./assets/images/avatar-1.png" alt="Daniel lewis" width="80" data-modal-img>
+              </figure>
+
+              <img src="./assets/images/icon-quote.svg" alt="quote icon">
+            </div>
+
+            <div class="modal-content">
+
+              <h4 class="h3 modal-title" data-modal-title>Daniel lewis</h4>
+
+              <time datetime="2021-06-14">14 June, 2021</time>
+
+              <div data-modal-text>
+                <p>
+                  Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
+                  lot of experience
+                  and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
+                  consectetur adipiscing
+                  elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
+                </p>
+              </div>
+
+            </div>
+
+          </section>
+
+        </div>
+
+
+        <!--
+          - clients
+        -->
+
+        <section class="clients">
+
+          <h3 class="h3 clients-title">Clients</h3>
+
+          <ul class="clients-list has-scrollbar">
+
+            <li class="clients-item">
+              <a href="#">
+                <img src="./assets/images/logo-1-color.png" alt="client logo">
+              </a>
+            </li>
+
+            <li class="clients-item">
+              <a href="#">
+                <img src="./assets/images/logo-2-color.png" alt="client logo">
+              </a>
+            </li>
+
+            <li class="clients-item">
+              <a href="#">
+                <img src="./assets/images/logo-3-color.png" alt="client logo">
+              </a>
+            </li>
+
+            <li class="clients-item">
+              <a href="#">
+                <img src="./assets/images/logo-4-color.png" alt="client logo">
+              </a>
+            </li>
+
+            <li class="clients-item">
+              <a href="#">
+                <img src="./assets/images/logo-5-color.png" alt="client logo">
+              </a>
+            </li>
+
+            <li class="clients-item">
+              <a href="#">
+                <img src="./assets/images/logo-6-color.png" alt="client logo">
+              </a>
+            </li>
+
+          </ul>
+
+        </section>
+
+      </article>
+
+
+
+
+
+      <!--
+        - #RESUME
+      -->
+
+      <article class="resume" data-page="resume">
+
+        <header>
+          <h2 class="h2 article-title">Resume</h2>
+        </header>
+
+        <section class="timeline">
+
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="book-outline"></ion-icon>
+            </div>
+
+            <h3 class="h3">Education</h3>
+          </div>
+
+          <ol class="timeline-list">
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">University school of the arts</h4>
+
+              <span>2007 — 2008</span>
+
+              <p class="timeline-text">
+                Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et
+                quas molestias
+                exceptur.
+              </p>
+
+            </li>
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">New york academy of art</h4>
+
+              <span>2006 — 2007</span>
+
+              <p class="timeline-text">
+                Ratione voluptatem sequi nesciunt, facere quisquams facere menda ossimus, omnis voluptas assumenda est
+                omnis..
+              </p>
+
+            </li>
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">High school of art and design</h4>
+
+              <span>2002 — 2004</span>
+
+              <p class="timeline-text">
+                Duis aute irure dolor in reprehenderit in voluptate, quila voluptas mag odit aut fugit, sed consequuntur
+                magni dolores
+                eos.
+              </p>
+
+            </li>
+
+          </ol>
+
+        </section>
+
+        <section class="timeline">
+
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="book-outline"></ion-icon>
+            </div>
+
+            <h3 class="h3">Experience</h3>
+          </div>
+
+          <ol class="timeline-list">
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">Creative director</h4>
+
+              <span>2015 — Present</span>
+
+              <p class="timeline-text">
+                Nemo enim ipsam voluptatem blanditiis praesentium voluptum delenit atque corrupti, quos dolores et qvuas
+                molestias
+                exceptur.
+              </p>
+
+            </li>
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">Art director</h4>
+
+              <span>2013 — 2015</span>
+
+              <p class="timeline-text">
+                Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et
+                quas molestias
+                exceptur.
+              </p>
+
+            </li>
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">Web designer</h4>
+
+              <span>2010 — 2013</span>
+
+              <p class="timeline-text">
+                Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et
+                quas molestias
+                exceptur.
+              </p>
+
+            </li>
+
+          </ol>
+
+        </section>
+
+        <section class="skill">
+
+          <h3 class="h3 skills-title">My skills</h3>
+
+          <ul class="skills-list content-card">
+
+            <li class="skills-item">
+
+              <div class="title-wrapper">
+                <h5 class="h5">Web design</h5>
+                <data value="80">80%</data>
+              </div>
+
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 80%;"></div>
+              </div>
+
+            </li>
+
+            <li class="skills-item">
+
+              <div class="title-wrapper">
+                <h5 class="h5">Graphic design</h5>
+                <data value="70">70%</data>
+              </div>
+
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 70%;"></div>
+              </div>
+
+            </li>
+
+            <li class="skills-item">
+
+              <div class="title-wrapper">
+                <h5 class="h5">Branding</h5>
+                <data value="90">90%</data>
+              </div>
+
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 90%;"></div>
+              </div>
+
+            </li>
+
+            <li class="skills-item">
+
+              <div class="title-wrapper">
+                <h5 class="h5">WordPress</h5>
+                <data value="50">50%</data>
+              </div>
+
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 50%;"></div>
+              </div>
+
+            </li>
+
+          </ul>
+
+        </section>
+
+      </article>
+
+
+
+
+
+      <!--
+        - #PORTFOLIO
+      -->
+
+      <article class="portfolio" data-page="portfolio">
+
+        <header>
+          <h2 class="h2 article-title">Portfolio</h2>
+        </header>
+
+        <section class="projects">
+
+          <ul class="filter-list">
+
+            <li class="filter-item">
+              <button class="active" data-filter-btn>All</button>
+            </li>
+
+            <li class="filter-item">
+              <button data-filter-btn>Web design</button>
+            </li>
+
+            <li class="filter-item">
+              <button data-filter-btn>Graphics</button>
+            </li>
+
+            <li class="filter-item">
+              <button data-filter-btn>Web development</button>
+            </li>
+
+          </ul>
+
+          <div class="filter-select-box">
+
+            <button class="filter-select" data-select>
+
+              <div class="select-value" data-selecct-value>Select category</div>
+
+              <div class="select-icon">
+                <ion-icon name="chevron-down"></ion-icon>
+              </div>
+
+            </button>
+
+            <ul class="select-list">
+
+              <li class="select-item">
+                <button data-select-item>All</button>
+              </li>
+
+              <li class="select-item">
+                <button data-select-item>Web design</button>
+              </li>
+
+              <li class="select-item">
+                <button data-select-item>Graphics</button>
+              </li>
+
+              <li class="select-item">
+                <button data-select-item>Web development</button>
+              </li>
+
+            </ul>
+
+          </div>
+
+          <ul class="project-list">
+
+            <li class="project-item  active" data-filter-item data-category="web development">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="./assets/images/project-1.jpg" alt="finance" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Finance</h3>
+
+                <p class="project-category">Web development</p>
+
+              </a>
+            </li>
+
+            <li class="project-item  active" data-filter-item data-category="web development">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="./assets/images/project-2.png" alt="orizon" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Orizon</h3>
+
+                <p class="project-category">Web development</p>
+
+              </a>
+            </li>
+
+            <li class="project-item  active" data-filter-item data-category="web design">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="./assets/images/project-3.jpg" alt="fundo" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Fundo</h3>
+
+                <p class="project-category">Web design</p>
+
+              </a>
+            </li>
+
+            <li class="project-item  active" data-filter-item data-category="graphics">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="./assets/images/project-4.png" alt="brawlhalla" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Brawlhalla</h3>
+
+                <p class="project-category">Graphics</p>
+
+              </a>
+            </li>
+
+            <li class="project-item  active" data-filter-item data-category="web design">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="./assets/images/project-5.png" alt="dsm." loading="lazy">
+                </figure>
+
+                <h3 class="project-title">DSM.</h3>
+
+                <p class="project-category">Web design</p>
+
+              </a>
+            </li>
+
+            <li class="project-item  active" data-filter-item data-category="web design">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="./assets/images/project-6.png" alt="metaspark" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">MetaSpark</h3>
+
+                <p class="project-category">Web design</p>
+
+              </a>
+            </li>
+
+            <li class="project-item  active" data-filter-item data-category="web development">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="./assets/images/project-7.png" alt="summary" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Summary</h3>
+
+                <p class="project-category">Web development</p>
+
+              </a>
+            </li>
+
+            <li class="project-item  active" data-filter-item data-category="graphics">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="./assets/images/project-8.jpg" alt="task manager" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Task Manager</h3>
+
+                <p class="project-category">Graphics</p>
+
+              </a>
+            </li>
+
+            <li class="project-item  active" data-filter-item data-category="web development">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="./assets/images/project-9.png" alt="arrival" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Arrival</h3>
+
+                <p class="project-category">Web development</p>
+
+              </a>
+            </li>
+
+          </ul>
+
+        </section>
+
+      </article>
+
+
+
+
+
+      <!--
+        - #BLOG
+      -->
+
+      <article class="blog" data-page="blog">
+
+        <header>
+          <h2 class="h2 article-title">Blog</h2>
+        </header>
+
+        <section class="blog-posts">
+
+          <ul class="blog-posts-list">
+
+            <li class="blog-post-item">
+              <a href="#">
+
+                <figure class="blog-banner-box">
+                  <img src="./assets/images/blog-1.jpg" alt="Design conferences in 2022" loading="lazy">
+                </figure>
+
+                <div class="blog-content">
+
+                  <div class="blog-meta">
+                    <p class="blog-category">Design</p>
+
+                    <span class="dot"></span>
+
+                    <time datetime="2022-02-23">Fab 23, 2025</time>
+                  </div>
+
+                  <h3 class="h3 blog-item-title">Design conferences in 2025</h3>
+
+                  <p class="blog-text">
+                    Veritatis et quasi architecto beatae vitae dicta sunt, explicabo.
+                  </p>
+
+                </div>
+
+              </a>
+            </li>
+
+            <li class="blog-post-item">
+              <a href="#">
+
+                <figure class="blog-banner-box">
+                  <img src="./assets/images/blog-2.jpg" alt="Best fonts every designer" loading="lazy">
+                </figure>
+
+                <div class="blog-content">
+
+                  <div class="blog-meta">
+                    <p class="blog-category">Design</p>
+
+                    <span class="dot"></span>
+
+                    <time datetime="2022-02-23">Fab 23, 2026</time>
+                  </div>
+
+                  <h3 class="h3 blog-item-title">Best fonts every designer</h3>
+
+                  <p class="blog-text">
+                    Sed ut perspiciatis, nam libero tempore, cum soluta nobis est eligendi.
+                  </p>
+
+                </div>
+
+              </a>
+            </li>
+
+            <li class="blog-post-item">
+              <a href="#">
+
+                <figure class="blog-banner-box">
+                  <img src="./assets/images/blog-3.jpg" alt="Design digest #80" loading="lazy">
+                </figure>
+
+                <div class="blog-content">
+
+                  <div class="blog-meta">
+                    <p class="blog-category">Design</p>
+
+                    <span class="dot"></span>
+
+                    <time datetime="2022-02-23">Fab 23, 2026</time>
+                  </div>
+
+                  <h3 class="h3 blog-item-title">Design digest #80</h3>
+
+                  <p class="blog-text">
+                    Excepteur sint occaecat cupidatat no proident, quis nostrum exercitationem ullam corporis suscipit.
+                  </p>
+
+                </div>
+
+              </a>
+            </li>
+
+            <li class="blog-post-item">
+              <a href="#">
+
+                <figure class="blog-banner-box">
+                  <img src="./assets/images/blog-4.jpg" alt="UI interactions of the week" loading="lazy">
+                </figure>
+
+                <div class="blog-content">
+
+                  <div class="blog-meta">
+                    <p class="blog-category">Design</p>
+
+                    <span class="dot"></span>
+
+                    <time datetime="2022-02-23">Fab 23, 2026</time>
+                  </div>
+
+                  <h3 class="h3 blog-item-title">UI interactions of the week</h3>
+
+                  <p class="blog-text">
+                    Enim ad minim veniam, consectetur adipiscing elit, quis nostrud exercitation ullamco laboris nisi.
+                  </p>
+
+                </div>
+
+              </a>
+            </li>
+
+            <li class="blog-post-item">
+              <a href="#">
+
+                <figure class="blog-banner-box">
+                  <img src="./assets/images/blog-5.jpg" alt="The forgotten art of spacing" loading="lazy">
+                </figure>
+
+                <div class="blog-content">
+
+                  <div class="blog-meta">
+                    <p class="blog-category">Design</p>
+
+                    <span class="dot"></span>
+
+                    <time datetime="2022-02-23">Fab 23, 2026</time>
+                  </div>
+
+                  <h3 class="h3 blog-item-title">The forgotten art of spacing</h3>
+
+                  <p class="blog-text">
+                    Maxime placeat, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  </p>
+
+                </div>
+
+              </a>
+            </li>
+
+            <li class="blog-post-item">
+              <a href="#">
+
+                <figure class="blog-banner-box">
+                  <img src="./assets/images/blog-6.jpg" alt="Design digest #79" loading="lazy">
+                </figure>
+
+                <div class="blog-content">
+
+                  <div class="blog-meta">
+                    <p class="blog-category">Design</p>
+
+                    <span class="dot"></span>
+
+                    <time datetime="2022-02-23">Fab 23, 2026</time>
+                  </div>
+
+                  <h3 class="h3 blog-item-title">Design digest #79</h3>
+
+                  <p class="blog-text">
+                    Optio cumque nihil impedit uo minus quod maxime placeat, velit esse cillum.
+                  </p>
+
+                </div>
+
+              </a>
+            </li>
+
+          </ul>
+
+        </section>
+
+      </article>
+
+
+
+
+
+      <!--
+        - #CONTACT
+      -->
+
+      <article class="contact" data-page="contact">
+
+        <header>
+          <h2 class="h2 article-title">Contact</h2>
+        </header>
+
+        <section class="mapbox" data-mapbox>
+          <figure>
+            <iframe
+              src="https://www.google.com/maps?q=https://maps.app.goo.gl/kcohdsJYrXifGUoo7&output=embed"
+              width="400" height="300" loading="lazy"></iframe>
+          </figure>
+        </section>
+
+        <section class="contact-form">
+
+          <h3 class="h3 form-title">Contact Form</h3>
+
+          <form action="#" class="form" data-form>
+
+            <div class="input-wrapper">
+              <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
+
+              <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
+            </div>
+
+            <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
+
+            <button class="form-btn" type="submit" disabled data-form-btn>
+              <ion-icon name="paper-plane"></ion-icon>
+              <span>Send Message</span>
+            </button>
+
+          </form>
+
+        </section>
+
+      </article>
+
     </div>
 
-    <button class="theme-toggle" id="theme">☀️</button>
+  </main>
 
-    <div class="container">
-        <section class="hero">
-            <div class="badge">✨ Full-Stack Developer</div>
-            <h1><span class="gradient-text">Karanjot</span><br>Singh</h1>
-            <div class="typewriter-line">
-                <span style="color: var(--text-secondary);">></span>
-                <span class="typewriter" id="typewriter"></span>
-                <span class="cursor">|</span>
-            </div>
-            <p class="hero-description">Passionate developer crafting clean code and amazing digital experiences from the ground up.</p>
-            <a href="dashboard.html" class="cta-button"><span>✨</span> Get Started</a>
-            <div class="scroll-indicator">Scroll ↓</div>
-        </section>
 
-        <section id="skills">
-            <div class="section-header scroll-fade">
-                <div class="section-badge">🧰 My Toolkit</div>
-                <h2 class="section-title">Skills & <span class="gradient-text">Languages</span></h2>
-                <p class="section-subtitle">Technologies I love working with</p>
-            </div>
-            <div class="skills-grid scroll-zoom">
-                <div class="skill-card"><div class="skill-icon c-lang">C</div><div class="skill-name">C</div></div>
-                <div class="skill-card"><div class="skill-icon cpp-lang">C+</div><div class="skill-name">C++</div></div>
-                <div class="skill-card"><div class="skill-icon py-lang">Py</div><div class="skill-name">Python</div></div>
-                <div class="skill-card"><div class="skill-icon html-lang">H</div><div class="skill-name">HTML</div></div>
-                <div class="skill-card"><div class="skill-icon css-lang">C</div><div class="skill-name">CSS</div></div>
-                <div class="skill-card"><div class="skill-icon js-lang">JS</div><div class="skill-name">JavaScript</div></div>
-                <div class="skill-card"><div class="skill-icon react-lang">Re</div><div class="skill-name">React</div></div>
-                <div class="skill-card"><div class="skill-icon git-lang">G</div><div class="skill-name">Git</div></div>
-            </div>
-            <div class="expertise-card scroll-slide-left">
-                <div class="expertise-content">
-                    <h3>Systems Programming</h3>
-                    <p>Expert in C and C++ for low-level, high-performance software development.</p>
-                </div>
-            </div>
-            <div class="expertise-card scroll-slide-left">
-                <div class="expertise-content">
-                    <h3>Python Development</h3>
-                    <p>Building scripts, automations, and data processing tools with Python.</p>
-                </div>
-            </div>
-            <div class="expertise-card scroll-slide-left">
-                <div class="expertise-content">
-                    <h3>Web Development</h3>
-                    <p>Creating modern, responsive websites using HTML, CSS, and JavaScript.</p>
-                </div>
-            </div>
-        </section>
 
-        <section>
-            <div class="section-header scroll-fade">
-                <div class="section-badge">💻 Code Samples</div>
-                <h2 class="section-title">My <span class="gradient-text">Code</span></h2>
-                <p class="section-subtitle">A taste of languages I write in</p>
-            </div>
-            <div class="code-window scroll-slide-right">
-                <div class="code-header">
-                    <div class="code-dot red"></div>
-                    <div class="code-dot yellow"></div>
-                    <div class="code-dot green"></div>
-                    <div class="code-lang">C</div>
-                </div>
-                <div class="code-content">#include &lt;stdio.h&gt;
 
-int main() {
-  printf("Hello, World!\n");
-  return 0;
-}</div>
-            </div>
-            <div class="code-window scroll-slide-left">
-                <div class="code-header">
-                    <div class="code-dot red"></div>
-                    <div class="code-dot yellow"></div>
-                    <div class="code-dot green"></div>
-                    <div class="code-lang">C++</div>
-                </div>
-                <div class="code-content">#include &lt;iostream&gt;
-using namespace std;
 
-int main() {
-  cout &lt;&lt; "Hello C++!" &lt;&lt; endl;
-  return 0;
-}</div>
-            </div>
-            <div class="code-window scroll-slide-right">
-                <div class="code-header">
-                    <div class="code-dot red"></div>
-                    <div class="code-dot yellow"></div>
-                    <div class="code-dot green"></div>
-                    <div class="code-lang">Python</div>
-                </div>
-                <div class="code-content">def greet(name):
-    return f"Hello, {name}!"
 
-print(greet("Karanjot"))</div>
-            </div>
-            <div class="code-window scroll-slide-left">
-                <div class="code-header">
-                    <div class="code-dot red"></div>
-                    <div class="code-dot yellow"></div>
-                    <div class="code-dot green"></div>
-                    <div class="code-lang">HTML</div>
-                </div>
-                <div class="code-content">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-  &lt;head&gt;&lt;title&gt;Portfolio&lt;/title&gt;&lt;/head&gt;
-  &lt;body&gt;&lt;h1&gt;Karanjot Singh&lt;/h1&gt;&lt;/body&gt;
-&lt;/html&gt;</div>
-            </div>
-        </section>
+  <!--
+    - custom js link
+  -->
+  <script src="./assets/js/script.js"></script>
 
-        <section>
-            <div class="stats-grid scroll-zoom">
-                <div class="stat-card"><div class="stat-number">5+</div><div class="stat-label">Languages</div></div>
-                <div class="stat-card"><div class="stat-number">10+</div><div class="stat-label">Projects</div></div>
-                <div class="stat-card"><div class="stat-number">2+</div><div class="stat-label">Years Coding</div></div>
-            </div>
-        </section>
+  <!--
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
-        <section id="contact">
-            <div class="connect-card scroll-fade">
-                <div class="connect-icon">🌐</div>
-                <h3>Let's <span class="gradient-text">Connect</span></h3>
-                <p>I'm always open to new opportunities and exciting projects. Let's build something amazing together!</p>
-                <a href="dashboard.html" class="cta-button"><span>✨</span> Get In Touch</a>
-            </div>
-        </section>
-    </div>
-
-    <script>
-        const starfield = document.getElementById('starfield');
-        for (let i = 0; i < 50; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
-            star.style.animationDelay = Math.random() * 3 + 's';
-            starfield.appendChild(star);
-        }
-
-        const theme = document.getElementById('theme');
-        theme.addEventListener('click', () => {
-            const current = document.body.getAttribute('data-theme');
-            const next = current === 'dark' ? 'light' : 'dark';
-            document.body.setAttribute('data-theme', next);
-            theme.textContent = next === 'dark' ? '☀️' : '🌙';
-        });
-
-        const phrases = ['Hello Welcome My Coding World','I Work in C', 'I Work in C++', 'I Work in Python', 'I Work in Websites', 'I Work in Social Media Posters', 'I Make Plan Presentation'];
-        let i = 0, j = 0, del = false;
-        const el = document.getElementById('typewriter');
-
-        function type() {
-            const phrase = phrases[i];
-            if (del) {
-                el.textContent = phrase.substring(0, j - 1);
-                j--;
-            } else {
-                el.textContent = phrase.substring(0, j + 1);
-                j++;
-            }
-            let speed = del ? 50 : 100;
-            if (!del && j === phrase.length) {
-                speed = 3000;
-                del = true;
-            } else if (del && j === 0) {
-                del = false;
-                i = (i + 1) % phrases.length;
-                speed = 500;
-            }
-            setTimeout(type, speed);
-        }
-        type();
-
-        // Scroll Animation Observer
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        // Observe all elements with scroll animation classes
-        document.querySelectorAll('.scroll-fade, .scroll-slide-left, .scroll-slide-right, .scroll-zoom').forEach(el => {
-            observer.observe(el);
-        });
-    </script>
 </body>
+
 </html>
