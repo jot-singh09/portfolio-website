@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>vCard - Personal Portfolio</title>
+    <title>Karan Portfolio</title>
 
     <!--
     - favicon
@@ -45,7 +45,7 @@
         <div class="sidebar-info">
           <figure class="avatar-box">
             <img
-              src="./assets/images/my-avatar.png"
+              src="./assets/images/karan12.png"
               alt="Karanjot Singh"
               width="80"
             />
@@ -174,6 +174,10 @@
 
             <li class="navbar-item">
               <button class="navbar-link" data-nav-link>Blog</button>
+            </li>
+
+            <li class="navbar-item">
+              <button class="navbar-link" data-nav-link>Projects</button>
             </li>
 
             <li class="navbar-item">
@@ -936,6 +940,43 @@
 
                   <p class="project-category">Web development</p>
                 </a>
+              </li>
+            </ul>
+          </section>
+        </article>
+
+        <!--
+        - #PROJECTS
+      -->
+
+        <article class="projects" data-page="projects">
+          <header>
+            <h2 class="h2 article-title">Projects</h2>
+          </header>
+
+          <section class="projects-content">
+            <ul class="project-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+              <li class="project-item active" style="background: var(--border-gradient-onyx); padding: 25px; border-radius: 14px; box-shadow: var(--shadow-2); position: relative; z-index: 1; display: flex; flex-direction: column; min-height: 160px;">
+                <div style="position: absolute; inset: 1px; background: var(--bg-gradient-jet); border-radius: inherit; z-index: -1;"></div>
+                
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 25px;">
+                  <div class="project-item-icon-box" style="background: var(--bg-gradient-yellow-1); color: var(--smoky-black); border-radius: 8px; font-size: 24px; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-1);">
+                    <ion-icon name="musical-notes-outline"></ion-icon>
+                  </div>
+                  <div>
+                    <h3 class="project-title" style="color: var(--white-2); font-size: var(--fs-4); font-weight: var(--fw-500); margin-bottom: 5px;">Personal Song Website</h3>
+                    <p class="project-category" style="color: var(--light-gray); font-size: var(--fs-6); font-weight: var(--fw-300);">Web Application</p>
+                  </div>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-top: auto;">
+                  <a href="http://song-website.netlify.app/" target="_blank" style="flex: 1; text-align: center; padding: 10px 5px; background: var(--onyx); color: var(--orange-yellow-crayola); font-weight: 500; font-size: var(--fs-6); border-radius: 8px; border: 1px solid var(--jet); transition: var(--transition-1); display: flex; justify-content: center; align-items: center; gap: 5px;">
+                    <ion-icon name="globe-outline"></ion-icon> Visit Website
+                  </a>
+                  <a href="./Website-song/index.html" target="_blank" style="flex: 1; text-align: center; padding: 10px 5px; background: var(--bg-gradient-yellow-1); color: var(--smoky-black); font-weight: 600; font-size: var(--fs-6); border-radius: 8px; box-shadow: var(--shadow-2); transition: var(--transition-1); display: flex; justify-content: center; align-items: center; gap: 5px;">
+                    <ion-icon name="play-circle-outline"></ion-icon> Live Preview
+                  </a>
+                </div>
               </li>
             </ul>
           </section>
